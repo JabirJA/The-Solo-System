@@ -230,7 +230,6 @@
     <div class="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
       <div class="bg-gray-800 p-6 rounded-lg text-gray-200">🚛 Logistics & eCommerce</div>
       <div class="bg-gray-800 p-6 rounded-lg text-gray-200">🧠 UX/UI Design</div>
-      <div class="bg-gray-800 p-6 rounded-lg text-gray-200">🔐 Fintech / Payments</div>
       <div class="bg-gray-800 p-6 rounded-lg text-gray-200">🌐 Web & Mobile Dev</div>
       <div class="bg-gray-800 p-6 rounded-lg col-span-2 md:col-span-1 text-gray-200">🎯 Brand Strategy</div>
     </div>
@@ -260,21 +259,37 @@
   <!-- CONTACT SECTION -->
   <section id="contact" class="py-20 px-6 bg-black">
     <h2 class="hero-heading text-3xl font-bold text-center text-white mb-8">Get in Touch</h2>
-    <form class="max-w-xl mx-auto space-y-6">
-      <!-- Name Input -->
-      <input type="text" placeholder="Your Name" class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500" />
-  
-      <!-- Email Input -->
-      <input type="email" placeholder="Your Email" class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500" />
-  
-      <!-- Message Textarea -->
-      <textarea placeholder="Your Message" rows="4" class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-  
-      <!-- Submit Button -->
-      <div class="flex justify-center">
-        <button class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg transition duration-200">Send</button>
-      </div>
-    </form>
+    <form 
+  action="/send-email" 
+  method="POST" 
+  class="max-w-xl mx-auto space-y-6"
+>
+  <input 
+    type="text" 
+    name="name" 
+    placeholder="Your Name" 
+    required
+    class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+  />
+  <input 
+    type="email" 
+    name="email" 
+    placeholder="Your Email" 
+    required
+    class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500" 
+  />
+  <textarea 
+    name="message" 
+    placeholder="Your Message" 
+    rows="4" 
+    required
+    class="w-full p-3 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+  ></textarea>
+  <div class="flex justify-center">
+    <button type="submit" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg transition duration-200">Send</button>
+  </div>
+</form>
+
     <div class="mt-8 text-center text-gray-400">Subscribe: “Get updates from the Solo System.”</div>
   </section>
   
@@ -290,55 +305,6 @@
     <div class="text-sm text-gray-500">© 2025 The Solo System. All Rights Reserved.</div>
   </footer>
 
-  <script>
-    // Toggle the mobile navbar
-    const navbarToggler = document.getElementById("navbar-toggler");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    navbarToggler.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-
-    // Navbar active link functionality
-    const navbarLinks = document.querySelectorAll(".navbar-link");
-    navbarLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        navbarLinks.forEach(link => link.classList.remove("active"));
-        link.classList.add("active");
-      });
-    });
-    function openModal(title, images) {
-    // Set the modal title
-    document.getElementById('projectModal').classList.remove('hidden');
-
-    // Add images to modal
-    const modalImages = document.getElementById('modalImages');
-    modalImages.innerHTML = ''; // Clear existing images
-    images.forEach(image => {
-      const imgElement = document.createElement('img');
-      imgElement.src = image;
-      imgElement.alt = title;
-      imgElement.classList.add('w-1/2', 'md:w-1/4', 'p-2');
-      modalImages.appendChild(imgElement);
-    });
-
-    // Disable body scroll
-    document.body.style.overflow = 'hidden';
-  }
-
-  // Close the modal when "Close" button is clicked
-  document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('projectModal').classList.add('hidden');
-    document.body.style.overflow = 'auto'; // Re-enable scrolling
-  });
-
-  // Close modal if clicked outside
-  document.getElementById('projectModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('projectModal')) {
-      document.getElementById('projectModal').classList.add('hidden');
-      document.body.style.overflow = 'auto'; // Re-enable scrolling
-    }
-  });
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
