@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const transporter = nodemailer.createTransport({
   service: 'gmail', // e.g. Gmail, Outlook
   auth: {
-    user: 'your_email@gmail.com',
+    user: 'jabdussalam011@gmail.com',
     pass: 'your_app_password', // Use an app password, not your Gmail password
   },
 });
@@ -20,7 +20,7 @@ app.post('/send-email', (req, res) => {
 
   const mailOptions = {
     from: email,
-    to: 'your_email@gmail.com', // your email
+    to: 'jabdussalam011@gmail.com', // your email
     subject: `New message from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
   };
