@@ -1,44 +1,41 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const { Resend } = require('resend');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = 3000;
 
-// Initialize Resend with your API key from environment
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
-// Simple sanitization to prevent HTML injection
-const escapeHTML = (str) => str.replace(/[&<>"']/g, (s) => ({
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;'
-}[s]));
+// Simple sanitization
+const escapeHTML = (str) =>
+  str.replace(/[&<>"']/g, (s) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[s]));
 
 app.post('/send-email', async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Validate required fields
   if (!name || !email || !message) {
     return res.status(400).send('All fields (name, email, message) are required.');
   }
 
-  // Sanitize input
   const safeName = escapeHTML(name);
   const safeEmail = escapeHTML(email);
   const safeMessage = escapeHTML(message);
 
   try {
-    // Send main email to yourself
     const contactEmail = await resend.emails.send({
-      from: `${safeName} <no-reply@yourdomain.com>`,
+      from: 'onboarding@resend.dev',
       to: 'jabdussalam011@gmail.com',
       subject: 'New Contact Form Submission',
       html: `
@@ -48,15 +45,14 @@ app.post('/send-email', async (req, res) => {
       `,
     });
 
-    // Send auto-response to user
     const confirmationEmail = await resend.emails.send({
-      from: 'jabdussalam011@gmail.com',
+      from: 'onboarding@resend.dev',
       to: safeEmail,
       subject: 'Thank You for Contacting Us',
       html: `
         <p>Hi ${safeName},</p>
         <p>Thank you for reaching out! We’ve received your message and will get back to you as soon as possible.</p>
-        <p>– Your Name or Team</p>
+        <p>– Jabir Abdussalam</p>
       `,
     });
 
